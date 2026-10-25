@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0a0620">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="A little birthday surprise.">
+  <title>A Little Surprise ✨</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="no-js">
+
+  <!-- Night sky background -->
+  <div class="bg" aria-hidden="true">
+    <canvas id="sky"></canvas>
+    <div class="moon"></div>
+  </div>
+
+  <!-- Floating hearts (filled by script.js) -->
+  <div id="hearts" class="hearts" aria-hidden="true"></div>
+
+  <!-- Confetti layer -->
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <!-- Music toggle (shown after the surprise unlocks) -->
+  <button id="musicBtn" class="music-btn" type="button" aria-pressed="false" hidden>
+    <span class="music-icon" aria-hidden="true">♪</span>
+    <span id="musicLabel">Music off</span>
+  </button>
+
+  <noscript>
+    <p class="noscript-note">This surprise works best with JavaScript turned on. Everything is shown below anyway 💗</p>
+  </noscript>
+
+  <!-- ============ SCREEN 1: NAME ENTRY ============ -->
+  <main id="welcome" class="screen active">
+    <div class="card glass">
+      <p class="sparkle-line" aria-hidden="true">✦ &nbsp;✧&nbsp; ✦</p>
+      <h1 class="welcome-title">A Little Surprise ✨</h1>
+
+      <form id="nameForm" novalidate>
+        <label for="nameInput" class="prompt">Hey, what's your name? 💗</label>
+        <input id="nameInput" type="text" name="visitor-name" placeholder="Enter your name..."
+               autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false"
+               enterkeyhint="go" maxlength="40">
+        <p id="nameMsg" class="msg" role="status" aria-live="polite"></p>
+        <button id="nameBtn" type="submit" class="glow-btn">Open My Surprise 🎁</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- ============ SCREEN 2: BIRTHDAY ============ -->
+  <main id="birthday" class="screen" hidden>
+
+    <!-- Stage 1: celebration -->
+    <section class="stage" id="stageHero">
+      <p class="eyebrow rise" style="--d:.3s">made just for you</p>
+
+      <h2 id="hbTitle" class="hb-title" tabindex="-1">
+        <span class="w rise" style="--d:.7s">Happy</span>
+        <span class="w rise" style="--d:1s">Birthday,</span>
+        <span class="w rise" style="--d:1.3s">Gauri!</span>
+        <span class="w rise" style="--d:1.6s">🎂</span>
+      </h2>
+
+      <svg class="cake rise" style="--d:2s" viewBox="0 0 200 180" role="img" aria-label="A birthday cake with three glowing candles">
+        <defs>
+          <linearGradient id="gPink" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#ffc0e0"/>
+            <stop offset="1" stop-color="#ff7fbf"/>
+          </linearGradient>
+          <linearGradient id="gLav" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#e2d2ff"/>
+            <stop offset="1" stop-color="#a98bff"/>
+          </linearGradient>
+          <radialGradient id="gFlame" cx="50%" cy="60%" r="60%">
+            <stop offset="0" stop-color="#fff7c2"/>
+            <stop offset="0.6" stop-color="#ffcf6b"/>
+            <stop offset="1" stop-color="#ff9a5a"/>
+          </radialGradient>
+          <radialGradient id="gGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#ffe9a8" stop-opacity="0.55"/>
+            <stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- plate -->
+        <ellipse cx="100" cy="166" rx="88" ry="10" fill="#1d0f45" opacity="0.7"/>
+        <ellipse cx="100" cy="159" rx="82" ry="9" fill="#eadfff"/>
+
+        <!-- bottom layer -->
+        <rect x="30" y="108" width="140" height="50" rx="10" fill="url(#gPink)"/>
+        <path d="M30 114 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 v-6 h-140 z" fill="#fff6fb"/>
+        <circle cx="48" cy="140" r="2.6" fill="#fff"/>
+        <circle cx="74" cy="148" r="2.6" fill="#c9b2ff"/>
+        <circle cx="100" cy="138" r="2.6" fill="#fff"/>
+        <circle cx="128" cy="148" r="2.6" fill="#9cc4ff"/>
+        <circle cx="152" cy="138" r="2.6" fill="#fff"/>
+
+        <!-- top layer -->
+        <rect x="52" y="72" width="96" height="40" rx="9" fill="url(#gLav)"/>
+        <path d="M52 80 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 q8 14 16 0 v-8 h-96 z" fill="#fff6fb"/>
+        <circle cx="70" cy="102" r="2.4" fill="#fff"/>
+        <circle cx="100" cy="98" r="2.4" fill="#ffb3d9"/>
+        <circle cx="130" cy="102" r="2.4" fill="#fff"/>
+
+        <!-- candles -->
+        <circle cx="79" cy="42" r="18" fill="url(#gGlow)"/>
+        <circle cx="100" cy="38" r="20" fill="url(#gGlow)"/>
+        <circle cx="121" cy="42" r="18" fill="url(#gGlow)"/>
+
+        <rect x="76" y="50" width="6" height="22" rx="2" fill="#9cc4ff"/>
+        <rect x="97" y="46" width="6" height="26" rx="2" fill="#ffb3d9"/>
+        <rect x="118" y="50" width="6" height="22" rx="2" fill="#c9b2ff"/>
+
+        <ellipse class="flame" style="animation-delay:0s"   cx="79"  cy="43" rx="4" ry="7" fill="url(#gFlame)"/>
+        <ellipse class="flame" style="animation-delay:.25s" cx="100" cy="39" rx="4" ry="7" fill="url(#gFlame)"/>
+        <ellipse class="flame" style="animation-delay:.5s"  cx="121" cy="43" rx="4" ry="7" fill="url(#gFlame)"/>
+      </svg>
+
+      <p class="lead rise" style="--d:2.7s">
+        Another trip around the sun, and the world got a little brighter with you in it. 💫<br>
+        Tonight the stars are shining just for you &mdash; and I made a little surprise to start your special day.
+      </p>
+
+      <button id="toGift" class="glow-btn rise" style="--d:3.6s" type="button">There's something for you 🎁</button>
+    </section>
+
+    <!-- Stage 2: gift -->
+    <section class="stage" id="stageGift" hidden>
+      <h3 class="stage-title">A gift for you</h3>
+
+      <button id="giftBtn" class="gift" type="button" aria-label="Tap to open your surprise" aria-expanded="false">
+        <span class="gift-glow" aria-hidden="true"></span>
+        <span class="gift-lid" aria-hidden="true"><span class="bow"></span></span>
+        <span class="gift-box" aria-hidden="true"></span>
+      </button>
+
+      <p id="giftHint" class="hint">Tap to Open Your Surprise 🎁</p>
+
+      <div id="giftReveal" class="reveal" hidden>
+        <p class="reveal-title">🎉 Surprise! 🎉</p>
+        <p class="lead">
+          Wishing you a day as bright and magical as you are.<br>
+          May every wish you make tonight come true. 💜
+        </p>
+        <button id="toLetter" class="glow-btn" type="button">Open my letter 💌</button>
+      </div>
+    </section>
+
+    <!-- Stage 3: letter -->
+    <section class="stage" id="stageLetter" hidden>
+      <h3 class="stage-title">A letter for you</h3>
+
+      <button id="envelope" class="envelope" type="button" aria-label="Tap to open your letter" aria-expanded="false">
+        <span class="env-back" aria-hidden="true"></span>
+        <span class="env-paper" aria-hidden="true"></span>
+        <span class="env-front" aria-hidden="true"></span>
+        <span class="env-flap" aria-hidden="true"></span>
+        <span class="env-seal" aria-hidden="true">♥</span>
+      </button>
+      <p id="envHint" class="hint">Tap the envelope to open it 💌</p>
+
+      <article id="letter" class="letter" hidden aria-labelledby="letterTitle">
+        <h4 id="letterTitle" class="letter-greeting" style="--i:0">Dear Gauri,</h4>
+        <p style="--i:1">Happy Birthday! 🎂💜</p>
+        <p style="--i:2">Today the sky feels a little brighter, and I think it's because it's your day. I hope you wake up to a day full of laughter, good food, sweet surprises, and people who make you feel truly special &mdash; because you really do deserve all of it.</p>
+        <p style="--i:3">I wish this new year of your life brings you good health, a calm and happy mind, and smiles that last well beyond today. May your hard work turn into success, may your dreams come true one by one, and may even the ordinary days carry little reasons to smile.</p>
+        <p style="--i:4">Thank you for being such a warm and wonderful person. The world is genuinely nicer with you in it, and I hope this year gives you as much joy as you give to the people around you.</p>
+        <p style="--i:5">May the year ahead be full of beautiful moments, good news, new adventures, and happy surprises. And whenever things feel heavy, I hope you remember how appreciated you are.</p>
+        <p style="--i:6">Once more, Happy Birthday, Gauri. Make a wish tonight &mdash; the stars are listening. ✨</p>
+        <p class="sig" style="--i:7">With warm wishes,<br>Your friend 💜</p>
+      </article>
+
+      <div id="wishWrap" class="reveal" hidden>
+        <button id="wishBtn" class="glow-btn" type="button">Make a Wish 🌠</button>
+        <p id="wishMsg" class="wish-msg" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
