@@ -1,15 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0a0620">
+  <meta name="color-scheme" content="dark">
   <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="A little birthday surprise.">
   <title>A Little Surprise ✨</title>
-  <link rel="stylesheet" href="style.css">
+  <!-- Runs instantly, before the first paint, so hidden screens never flash. -->
+  <script>document.documentElement.className = 'js';</script>
+  <!-- ?v=2 makes phones fetch the new files instead of an old cached copy. Change the version number when updating these files. -->
+  <link rel="stylesheet" href="style.css?v=4">
+  <script src="script.js?v=4" defer></script>
 </head>
-<body class="no-js">
+<body>
 
   <!-- Night sky background -->
   <div class="bg" aria-hidden="true">
@@ -17,10 +22,10 @@
     <div class="moon"></div>
   </div>
 
-  <!-- Floating hearts (filled by script.js) -->
+  <!-- Floating hearts (filled by script.js after the unlock) -->
   <div id="hearts" class="hearts" aria-hidden="true"></div>
 
-  <!-- Confetti layer -->
+  <!-- Confetti layer (hidden until needed) -->
   <canvas id="confetti" aria-hidden="true"></canvas>
 
   <!-- Music toggle (shown after the surprise unlocks) -->
@@ -58,13 +63,14 @@
       <p class="eyebrow rise" style="--d:.3s">made just for you</p>
 
       <h2 id="hbTitle" class="hb-title" tabindex="-1">
-        <span class="w rise" style="--d:.7s">Happy</span>
-        <span class="w rise" style="--d:1s">Birthday,</span>
-        <span class="w rise" style="--d:1.3s">Gauri!</span>
-        <span class="w rise" style="--d:1.6s">🎂</span>
+        <span class="w rise" style="--d:.6s">Happy</span>
+        <span class="w rise" style="--d:.85s">Birthday,</span>
+        <span class="w rise" style="--d:1.1s">Gauri!</span>
+        <span class="w rise" style="--d:1.35s">🎂</span>
       </h2>
 
-      <svg class="cake rise" style="--d:2s" viewBox="0 0 200 180" role="img" aria-label="A birthday cake with three glowing candles">
+      <svg id="birthdayCake" class="cake rise" style="--d:1.7s" viewBox="0 0 200 180"
+           role="button" tabindex="0" aria-label="Tap the cake to blow out the candles" aria-describedby="cakeHint">
         <defs>
           <linearGradient id="gPink" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0" stop-color="#ffc0e0"/>
@@ -83,7 +89,14 @@
             <stop offset="0" stop-color="#ffe9a8" stop-opacity="0.55"/>
             <stop offset="1" stop-color="#ffe9a8" stop-opacity="0"/>
           </radialGradient>
+          <radialGradient id="gAura" cx="50%" cy="50%" r="50%">
+            <stop offset="0" stop-color="#ff6fb5" stop-opacity="0.35"/>
+            <stop offset="1" stop-color="#ff6fb5" stop-opacity="0"/>
+          </radialGradient>
         </defs>
+
+        <!-- soft pink aura (a gradient, not a CSS filter, so it is cheap to draw) -->
+        <ellipse cx="100" cy="120" rx="100" ry="70" fill="url(#gAura)"/>
 
         <!-- plate -->
         <ellipse cx="100" cy="166" rx="88" ry="10" fill="#1d0f45" opacity="0.7"/>
@@ -118,13 +131,14 @@
         <ellipse class="flame" style="animation-delay:.25s" cx="100" cy="39" rx="4" ry="7" fill="url(#gFlame)"/>
         <ellipse class="flame" style="animation-delay:.5s"  cx="121" cy="43" rx="4" ry="7" fill="url(#gFlame)"/>
       </svg>
+      <p id="cakeHint" class="cake-hint rise" style="--d:1.9s">Tap the candles and make a wish ✨</p>
 
-      <p class="lead rise" style="--d:2.7s">
+      <p class="lead rise" style="--d:2.2s">
         Another trip around the sun, and the world got a little brighter with you in it. 💫<br>
         Tonight the stars are shining just for you &mdash; and I made a little surprise to start your special day.
       </p>
 
-      <button id="toGift" class="glow-btn rise" style="--d:3.6s" type="button">There's something for you 🎁</button>
+      <button id="toGift" class="glow-btn rise" style="--d:3s" type="button">There's something for you 🎁</button>
     </section>
 
     <!-- Stage 2: gift -->
@@ -181,6 +195,5 @@
 
   </main>
 
-  <script src="script.js"></script>
 </body>
 </html>
